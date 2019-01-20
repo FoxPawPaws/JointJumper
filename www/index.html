@@ -58,21 +58,24 @@
       <!-- Modal content -->
       <div class="modal-content centered">
         <h2>Our highest weekly scorer!</h2>
-        <table style="width:100%">
-          <tr>
-            <th><h3>User</h3></th>
-            <th><h3>Points</h3></th> 
-          </tr>
-          <tr>
-            <td id="name1"></td>
-            <td score="score1"></td> 
-          </tr>
+        <table id= "myTable" style="width:100%">
+            <thead>
+                <tr>
+                    <th><h3>User</h3></th>
+                    <th><h3>Points</h3></th> 
+                </tr>
+            </thead>
+            <tbody id="table_body">
+                <tr>
+                    <th id="name1"></th>
+                    <th id="score1"></th>
+                </tr>
+            </tbody>
         </table>
-        <div>
-            <input id="name" type="text" name="Name" placeholder="Name" />
-            <input id="email" type="text" name="Email Address" placeholder="Email" />
+        <div id="newHighScore">
+            <input id="newName" type="text" name="Name"/>
+            <button id="submit" type="button">Submit your score!</button>
         </div>
-        <button id="submit" type="button">Submit your score!</button>
         <button id="startOver" type="button">Start Over</button>
       </div>
     </div>
@@ -100,36 +103,32 @@
                 document.location.reload(true);
             }         
         }
-        //upload score to Firebase if > top 5
-       /* function upLoadScore(newScore){
-            var button= document.getElementById('submit');
-            database = firebase.database();
-            firebaseRef= database().ref('1');
-
-            ref.on('value', gotData, errData)
-           
-            //when submit button is clicked
-            button.onclick= function(){
-                if(newScore){
-                    var name= document.getElementById('name').value;
-                    var email= document.getElementById('email').value;
-                   firebaseRef.child("name1").set(name);
-                   firebaseRef.child("score1").set(newScore);
-                }
-                //set value of highest score to name 1 and score 1 from firebase
-                //document.getElementById('name1').value= highScore.name1;
-                //document.getElementById('score1').value= highScore.score1;
-
-                
-            }
-        }*/
-        function gotData(data){
-           var scores = data.val();
-           var keys = Object.keys(scores);
+        //retrieve high score(get it.. HIGH score..)
+        function retrieveScore(){
+            var firebaseRef= firebase.database().ref().child("1");
+            firebaseRef.on("value", snap => {
+                var score= snap.val().score1;
+                var name= snap.val().name1;
+                document.getElementById("name1").innerHTML= name;
+                document.getElementById("score1").innerHTML= score;
+                upLoadScore(Math.floor(gamearea.score),newName,score);
+            }); 
         }
-        function errData(err){
-            console.log("error!");
-            console.log(err);
+        //upload score to Firebase if > top score
+        function upLoadScore(newScore,newName, oldScore){
+            var button= document.getElementById('submit');
+            if(newScore > oldScore){
+                //when submit button is clicked
+                button.onclick= function(){
+                var newName= document.getElementById('newName').value;
+                  firebase.database().ref('1/').set({
+                    name1: newName,
+                    score1: newScore
+                  });
+                }
+            }else{
+                document.getElementById('newHighScore').style.visibility = 'hidden';
+            }
         }
         function everyinterval(n){
             if(gamearea.frame%n==0) return true;
@@ -285,7 +284,7 @@
                 gamearea.context.clearRect(0,0,this.canvas.width,this.canvas.width);
             },
             stop:function(){
-                //upLoadScore(Math.floor(gamearea.score));
+                retrieveScore();
                 gameOver();
                 clearInterval(this.interval);
             }
