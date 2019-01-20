@@ -20,9 +20,10 @@
         minGap=400;
         maxGap=700;
         gap=randGap();
+        
         jumpTemp=1;
         var myObstacles=[];
-        var colours=["red","blue","green"];
+        var colours=["red","blue", "grey" ,"green","chocolate","yellow","orange"];
         function startGame(){
             gamearea.start();
         }
@@ -43,6 +44,7 @@
         var scoreText={
             x:900,
             y:50,
+            y1:100,
             update:function(text){
                 gamearea.context.fillStyle="gray";
                 gamearea.context.font="30px Consolas";
@@ -91,9 +93,14 @@
                 }
             },
             crashWith:function(obs){
+                y1:100 //joint score
                 if(this.x+60>obs.x &&this.x<obs.x+obs.width && this.y+80>obs.y){
-                    return true;
+                    if(obs.index == 3 ){
+                        return false;
+                    }return true;
                 }
+
+                gamearea.context.fillText("BONUS: "+100, this.x,this.y1);
                 return false;
             }
         }
@@ -120,6 +127,7 @@
                this.context=this.canvas.getContext("2d");
                this.frame=0;
                this.score=0;
+               this.jointScore=0; // joint score
                this.interval=setInterval(this.updateGameArea,5);
                window.addEventListener("keydown",jump);
             },
