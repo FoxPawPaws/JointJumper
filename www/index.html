@@ -34,7 +34,7 @@
         function jump(){
             if(jumpTemp==1){
                player.sourceX=240;
-               player.speedY-=8;
+               player.speedY-=6;
                jumpTemp=0;
             }
         }
@@ -53,18 +53,18 @@
         }
         var player={
             sourceX:0,
-            x:30,
+            x:35,
             y:420,
             speedY:0,
             update:function(){
                 gamearea.context.fillStyle="black";
                 playerSprite = new Image();
                 playerSprite.src='assets/playerSprite.png';
-                gamearea.context.drawImage(playerSprite,this.sourceX,0,60,80,this.x,this.y,60,80);
+                gamearea.context.drawImage(playerSprite,this.sourceX,0,60,80,this.x,this.y,55,80);
             },
             newPos:function(){
-                if(jumpTemp==0){
-                    this.speedY+=0.06;
+                if(jumpTemp==0){ 
+                    this.speedY+=0.04;
                     this.y += this.speedY;
                     this.speedY *=0.97;
                 }
@@ -94,7 +94,7 @@
             },
             crashWith:function(obs){
                 y1:100 //joint score
-                if(this.x+60>obs.x &&this.x<obs.x+obs.width && this.y+80>obs.y){
+                if(this.x+45>obs.x &&this.x<obs.x+obs.width && this.y+60>obs.y){
                     if(obs.index == 3 ){
                         return false;
                     }return true;
@@ -105,16 +105,26 @@
             }
         }
         function obstacle(){
-            
-            this.height=60;
-            this.width=40;
+            this.sourceX=0;
+            this.height=78;
+            this.width=55;
             this.x=1200;
             this.y=gamearea.canvas.height-this.height;
             this.index=Math.floor(Math.random()*colours.length);
             this.color=colours[this.index];
             this.draw=function(){
-                gamearea.context.fillStyle=this.color;
-                gamearea.context.fillRect(this.x,this.y,this.width,this.height);
+                //gamearea.context.fillStyle=this.color;
+               // gamearea.context.fillRect(this.x,this.y,this.width,this.height);
+               if((gamearea.frame+1) % 40 === 1){
+                    if(this.sourceX==60){
+                        this.sourceX=0;
+                    }else{
+                        this.sourceX+=60;
+                    }
+                }
+                obsSprite = new Image();
+                obsSprite.src='assets/pigSprite.png';
+                gamearea.context.drawImage(obsSprite,this.sourceX,0,60,80,this.x,this.y,this.width,this.height);
             }
         }
 
