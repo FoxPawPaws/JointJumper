@@ -45,33 +45,22 @@
     <div id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content centered">
-        <h2>Top 5 Scores!</h2>
+        <h2>Our highest weekly scorer!</h2>
         <table style="width:100%">
           <tr>
             <th><h3>User</h3></th>
             <th><h3>Points</h3></th> 
           </tr>
           <tr>
-            <td id="name1">First</td>
-            <td score="score1">10 000</td> 
-          </tr>
-          <tr>
-            <td id="name2">Second</td>
-            <td id="score2">9 000</td> 
-          </tr>
-          <tr>
-            <td id="name3">Third</td>
-            <td id="score3">7 000</td> 
-          </tr>
-          <tr>
-            <td id="name4">Four</td>
-            <td id="score4">5 000</td> 
-          </tr>
-          <tr>
-            <td id="name5">Five</td>
-            <td id="score5">1 000</td> 
+            <td id="name1"></td>
+            <td score="score1"></td> 
           </tr>
         </table>
+        <div>
+            <input id="name" type="text" name="Name" placeholder="Name" />
+            <input id="email" type="text" name="Email Address" placeholder="Email" />
+        </div>
+        <button id="submit" type="button">Submit your score!</button>
         <button id="startOver" type="button">Start Over</button>
       </div>
     </div>
@@ -89,20 +78,46 @@
             gamearea.start();
         }    
         function gameOver(){
-            var modal = document.getElementById('myModal');
-            var button = document.getElementById('startOver');
-            var span = document.getElementsByClassName("close")[0];
-            modal.style.display = "block";
+            var modal= document.getElementById('myModal');
+            var button= document.getElementById('startOver');
+            var span= document.getElementsByClassName("close")[0];
+            modal.style.display= "block";
             
-            button.onclick = function(){
-                modal.style.display = "none";
+            button.onclick= function(){
+                modal.style.display= "none";
                 document.location.reload(true);
             }         
         }
         //upload score to Firebase if > top 5
-        function upLoadScore(){
-            var database = firebase.database();
+       /* function upLoadScore(newScore){
+            var button= document.getElementById('submit');
+            database = firebase.database();
+            firebaseRef= database().ref('1');
 
+            ref.on('value', gotData, errData)
+           
+            //when submit button is clicked
+            button.onclick= function(){
+                if(newScore){
+                    var name= document.getElementById('name').value;
+                    var email= document.getElementById('email').value;
+                   firebaseRef.child("name1").set(name);
+                   firebaseRef.child("score1").set(newScore);
+                }
+                //set value of highest score to name 1 and score 1 from firebase
+                //document.getElementById('name1').value= highScore.name1;
+                //document.getElementById('score1').value= highScore.score1;
+
+                
+            }
+        }*/
+        function gotData(data){
+           var scores = data.val();
+           var keys = Object.keys(scores);
+        }
+        function errData(err){
+            console.log("error!");
+            console.log(err);
         }
         function everyinterval(n){
             if(gamearea.frame%n==0) return true;
@@ -245,7 +260,7 @@
                 gamearea.context.clearRect(0,0,this.canvas.width,this.canvas.width);
             },
             stop:function(){
-                console.log(Math.floor(gamearea.score));
+                //upLoadScore(Math.floor(gamearea.score));
                 gameOver();
                 clearInterval(this.interval);
             }
