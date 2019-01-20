@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="org.yanjing.flappybrid" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>t rex runner</name>
+    <name>Joint Jumper</name>
     <description>
      lil game with a lil t rex.
     </description>
-    <author email="xiaohuanshu@gmail.com" href="http://xiaohuanshu.github.io">
-        Yanjing
+    <author email="" href="">
+        Mike and Valmir
     </author>
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
@@ -18,10 +18,14 @@
     <allow-intent href="geo:*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <preference name="orientation" value="landscape" />
+        <preference name="fullscreen" value="true" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <preference name="orientation" value="landscape" />
+        <preference name="fullscreen" value="true" />
         <!-- iOS 8.0+ -->
 <!-- iPhone 6 Plus  -->
 <icon src="res/icon/ios/icon-180.png" width="180" height="180" />
