@@ -6,26 +6,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <title >chrome easter egg: t-rex runner</title>
     <link rel="stylesheet" href="index.css">
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script src="firebase.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <style>
         canvas{
             border:1px solid #000000;
             background-color: #bad9fa;
         }
+                /* The Modal (background) */
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        /* Modal Content/Box */
+        .modal-content {
+          background-color: #fefefe;
+          margin: 15% auto; /* 15% from the top and centered */
+          padding: 20px;
+          border: 1px solid #888;
+          width: 30%; /* Could be more or less, depending on screen size */
+        }
+        .centered{
+            text-align: center;
+        }
     </style> 
 </head>
+<body onload="startGame();">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content centered">
+        <h2>Top 5 Scores!</h2>
+        <table style="width:100%">
+          <tr>
+            <th><h3>User</h3></th>
+            <th><h3>Points</h3></th> 
+          </tr>
+          <tr>
+            <td id="name1">First</td>
+            <td score="score1">10 000</td> 
+          </tr>
+          <tr>
+            <td id="name2">Second</td>
+            <td id="score2">9 000</td> 
+          </tr>
+          <tr>
+            <td id="name3">Third</td>
+            <td id="score3">7 000</td> 
+          </tr>
+          <tr>
+            <td id="name4">Four</td>
+            <td id="score4">5 000</td> 
+          </tr>
+          <tr>
+            <td id="name5">Five</td>
+            <td id="score5">1 000</td> 
+          </tr>
+        </table>
+        <button id="startOver" type="button">Start Over</button>
+      </div>
+    </div>
 
-<body onload="startGame();" class="offline">
     <script type="text/javascript">
         minGap=400;
         maxGap=700;
         gap=randGap();
-        
+        bonusFlag= 0;
         jumpTemp=1;
         var myObstacles=[];
         var colours=["pigSprite","tempEvilSprite", "tempEvilSprite" ,"tempDankSprite"];
+        
         function startGame(){
             gamearea.start();
+        }    
+        function gameOver(){
+            var modal = document.getElementById('myModal');
+            var button = document.getElementById('startOver');
+            var span = document.getElementsByClassName("close")[0];
+            modal.style.display = "block";
+            
+            button.onclick = function(){
+                modal.style.display = "none";
+                document.location.reload(true);
+            }         
+        }
+        //upload score to Firebase if > top 5
+        function upLoadScore(){
+            var database = firebase.database();
+
         }
         function everyinterval(n){
             if(gamearea.frame%n==0) return true;
@@ -44,11 +121,15 @@
         var scoreText={
             x:900,
             y:50,
-            y1:100,
             update:function(text){
                 gamearea.context.fillStyle="gray";
                 gamearea.context.font="30px Consolas";
-                gamearea.context.fillText(text,this.x,this.y);
+                if(bonusFlag){
+                 gamearea.context.fillText("BONUS: + 100", this.x,this.y);
+                 gamearea.score+=1;
+                 bonusFlag=0;
+                }else{
+                gamearea.context.fillText(text,this.x,this.y);}
             }
         }
         var player={
@@ -68,7 +149,6 @@
                     this.y += this.speedY;
                     this.speedY *=0.97;
                 }
-                
                 if(this.y<100){
                     this.speedY=0;
                 }
@@ -83,7 +163,6 @@
                 }
             },
             newSprite:function(){
-
                 if(((gamearea.frame+1) % 25 === 1) && jumpTemp==1){
                     if(this.sourceX==180){
                         this.sourceX=0;
@@ -93,14 +172,12 @@
                 }
             },
             crashWith:function(obs){
-                y1:100 //joint score
                 if(this.x+45>obs.x &&this.x<obs.x+obs.width && this.y+60>obs.y){
-                    if(obs.index == 3 ){
+                    if(obs.index == 3){
+                        bonusFlag =1;
                         return false;
                     }return true;
                 }
-
-                gamearea.context.fillText("BONUS: "+100, this.x,this.y1);
                 return false;
             }
         }
@@ -113,8 +190,6 @@
             this.index=Math.floor(Math.random()*colours.length);
             this.color=colours[this.index];
             this.draw=function(){
-                //gamearea.context.fillStyle=this.color;
-               // gamearea.context.fillRect(this.x,this.y,this.width,this.height);
                if((gamearea.frame+1) % 40 === 1){
                     if(this.sourceX==60){
                         this.sourceX=0;
@@ -131,6 +206,7 @@
         var gamearea={
             canvas:document.createElement("canvas"),
             start:function(){
+               this.canvas.id="canvasID";
                this.canvas.height=500;
                this.canvas.width=1200;
                document.body.insertBefore(this.canvas,document.body.childNodes[0]);
@@ -169,11 +245,11 @@
                 gamearea.context.clearRect(0,0,this.canvas.width,this.canvas.width);
             },
             stop:function(){
+                console.log(Math.floor(gamearea.score));
+                gameOver();
                 clearInterval(this.interval);
-                alert("game over sucka");
             }
         }
     </script>
 </body>
-
 </html>
