@@ -23,7 +23,7 @@
         
         jumpTemp=1;
         var myObstacles=[];
-        var colours=["red","blue", "grey" ,"green","chocolate","yellow","orange"];
+        var colours=["pigSprite","tempEvilSprite", "tempEvilSprite" ,"tempDankSprite"];
         function startGame(){
             gamearea.start();
         }
@@ -123,7 +123,7 @@
                     }
                 }
                 obsSprite = new Image();
-                obsSprite.src='assets/pigSprite.png';
+                obsSprite.src='assets/'+colours[this.index]+'.png';
                 gamearea.context.drawImage(obsSprite,this.sourceX,0,60,80,this.x,this.y,this.width,this.height);
             }
         }
