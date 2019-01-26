@@ -20,12 +20,14 @@
         <allow-intent href="market:*" />
         <preference name="orientation" value="landscape" />
         <preference name="fullscreen" value="true" />
+        <preference name="DisallowOverscroll" value="true" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <preference name="orientation" value="landscape" />
         <preference name="fullscreen" value="true" />
+        <preference name="DisallowOverscroll" value="true" />
         <!-- iOS 8.0+ -->
 <!-- iPhone 6 Plus  -->
 <icon src="res/icon/ios/icon-180.png" width="180" height="180" />
