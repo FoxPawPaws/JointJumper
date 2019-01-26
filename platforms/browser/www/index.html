@@ -254,7 +254,7 @@
                this.score=0;
                this.jointScore=0; // joint score
                this.interval=setInterval(this.updateGameArea,5);
-               window.addEventListener("keydown",jump);
+               window.addEventListener("click",jump);
             },
             updateGameArea:function(){
                 for(i=0;i<myObstacles.length; i++){

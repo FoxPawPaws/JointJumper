@@ -13,8 +13,8 @@
 
         canvas{
             border:1px solid #000000;
-            width:1200px;
-            height:500px;
+            width:100%; /*1200px*/
+            height:100%;
             background-image: url("assets/ground.png"), url("assets/bg.jpg");
             background-position: 0 440px, 0px 0px;
             background-repeat: repeat-x, repeat-x;
@@ -23,8 +23,8 @@
         }
 
         @keyframes slide {
-            from { background-position: 0 440px, 0 0; }
-            to { background-position: -2142px 440px, -995px 0; }
+            from { background-position: 0 100%, 0 100%; }
+            to { background-position: -2142px 100%, -995px 100%; }
         }
                 /* The Modal (background) */
         .modal {
@@ -254,7 +254,7 @@
                this.score=0;
                this.jointScore=0; // joint score
                this.interval=setInterval(this.updateGameArea,5);
-               window.addEventListener("keydown",jump);
+               window.addEventListener("click",jump);
             },
             updateGameArea:function(){
                 for(i=0;i<myObstacles.length; i++){

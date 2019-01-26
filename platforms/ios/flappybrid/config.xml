@@ -18,7 +18,7 @@
     <feature name="Vibration">
         <param name="ios-package" value="CDVVibration" />
     </feature>
-    <name>t rex runner</name>
+    <name>Joint Jumper</name>
     <description>
      lil game with a lil t rex.
     </description>
@@ -64,4 +64,5 @@
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
     <preference name="orientation" value="landscape" />
+    <preference name="fullscreen" value="true" />
 </widget>
