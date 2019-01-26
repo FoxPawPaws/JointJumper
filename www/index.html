@@ -5,10 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <title >chrome easter egg: t-rex runner</title>
-    <link rel="stylesheet" href="index.css">
-    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
-    <script src="firebase.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!--<script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script src="firebase.js"></script>-->
     <style>
 
         body, html{
@@ -219,7 +217,7 @@
             this.height=78;
             this.width=55;
             this.x=1200;
-            this.y=380/*gamearea.canvas.height-this.height*/;
+            this.y=380;
             this.index=Math.floor(Math.random()*colours.length);
             this.color=colours[this.index];
             this.draw=function(){
