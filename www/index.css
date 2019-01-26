@@ -17,8 +17,8 @@ body, html{
         }
 
         @keyframes slide {
-            from { background-position: 0 35%, 0 -10%; }
-            to { background-position: -2142px 35%, -995px -10%; }
+            from { background-position: 0 110%, 0 90%; }
+            to { background-position: -2142px 110%, -995px 90%; }
         }
                 /* The Modal (background) */
         .modal {
@@ -38,7 +38,7 @@ body, html{
           margin: 15% auto; /* 15% from the top and centered */
           padding: 20px;
           border: 1px solid #888;
-          width: 30%; /* Could be more or less, depending on screen size */
+          width: 70%; /* Could be more or less, depending on screen size */
         }
         .centered{
             text-align: center;

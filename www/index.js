@@ -63,7 +63,7 @@
             return Math.floor(minGap+Math.random()*(maxGap=minGap+1));
         }
         var scoreText={
-            x:900,
+            x:window.innerWidth - 240,
             y:50,
             update:function(text){
                 gamearea.context.fillStyle="gray";
@@ -79,7 +79,7 @@
         var player={
             sourceX:0,
             x:80,
-            y:380,
+            y:window.innerHeight - 140,
             speedY:0,
             update:function(){
                 gamearea.context.fillStyle="black";
@@ -97,9 +97,9 @@
                     this.speedY=0;
                 }
                 this.y=this.y+this.speedY;
-                if(this.y>=380){
+                if(this.y>=(window.innerHeight - 140)){
                     this.speedY=0;
-                    this.y=380;
+                    this.y=(window.innerHeight - 140);
                     if(jumpTemp==0){
                        player.sourceX=0; 
                     }
@@ -129,8 +129,8 @@
             this.sourceX=0;
             this.height=78;
             this.width=55;
-            this.x=1200;
-            this.y=380;
+            this.x=gamearea.canvas.width;
+            this.y=gamearea.canvas.height - 140;
             this.index=Math.floor(Math.random()*colours.length);
             this.color=colours[this.index];
             this.draw=function(){
@@ -165,8 +165,8 @@
             start:function(){
                this.canvas.id="canvasID";
                this.screenvanvas = true;
-               this.canvas.height=window.innerHeight * window.devicePixelRatio;
-               this.canvas.width=window.innerWidth * window.devicePixelRatio;
+               this.canvas.height=window.innerHeight;
+               this.canvas.width=window.innerWidth;
                document.body.insertBefore(this.canvas,document.body.childNodes[0]);
                this.context=this.canvas.getContext("2d");
                this.frame=0;
