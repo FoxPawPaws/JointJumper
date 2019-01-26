@@ -34,12 +34,25 @@ body, html{
         }
         /* Modal Content/Box */
         .modal-content {
-          background-color: #fefefe;
-          margin: 15% auto; /* 15% from the top and centered */
+          background-color: #c7f6fe;
+          margin: 10% auto; /* 15% from the top and centered */
           padding: 20px;
-          border: 1px solid #888;
           width: 70%; /* Could be more or less, depending on screen size */
+          font-family: Arial, Helvetica, sans-serif;
+          border: 2px solid #494949 !important;
+border-radius: 6px;
         }
         .centered{
             text-align: center;
+        }
+
+        #startOver{
+          margin-top:20px;
+         color: #494949 !important;
+text-transform: uppercase;
+background: #afe73c;
+padding: 10px;
+border: 2px solid #494949 !important;
+border-radius: 6px;
+display: inline-block;         
         }
