@@ -259,7 +259,7 @@
                this.score=0;
                this.jointScore=0; // joint score
                this.interval=setInterval(this.updateGameArea,5);
-               window.addEventListener("click",jump);
+               window.addEventListener("mousedown",jump);
             },
             updateGameArea:function(){
                 for(i=0;i<myObstacles.length; i++){
